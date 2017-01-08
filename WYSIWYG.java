@@ -1,11 +1,7 @@
 import javax.swing.*;
 import javax.swing.text.*;
-
-import java.awt.*;              //for layout managers and more
-import java.awt.event.*;        //for action events
-
-import java.net.URL;
-import java.io.IOException;
+import java.awt.*;
+import java.awt.event.*;
 
 public class WYSIWYG extends JFrame {
     private Container pane;
