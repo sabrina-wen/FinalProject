@@ -1,51 +1,55 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-/*from  w ww.j  a va2s  .c om*/
-import java.awt.event.*;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
-import javax.swing.JTextPane;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
+import javax.swing.*;
+import javax.swing.text.*;
 
-public class WYSIWYG extends JFrameadLocationException implements ActionListener {
-	this.setTitle("WYSIWYG");
-	this.setSize(600,400);
+import java.awt.*;              //for layout managers and more
+import java.awt.event.*;        //for action events
+
+import java.net.URL;
+import java.io.IOException;
+
+public class WYSIWYG extends JFrame {
+    private Container pane;
+
+    public WYSIWYG () {
+	this.setTitle("WYSIWYG Editor");
+	this.setSize(800,600);
 	this.setLocation(100,100);
 	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
- 
-        pane = this.getContentPane();
-	pane.setLayout(new BorderLayout());
 
-	SimpleAttributeSet set = new SimpleAttributeSet();
-	StyleConstants.setBold(set, true);
+	// initializing pane
+	pane = this.getContentPane();
+	pane.setLayout(new FlowLayout());
 
-	// Set the attributes before adding text
-	ui.setCharacterAttributes(set, true);
-	ui.setText("java2s.com ");
+	// lableing ui pane
+	JLabel uilabel = new JLabel("Type and format code here.", null, JLabel.LEFT);
+	uilabel.setPreferredSize(new Dimension(300, 30));
 
-	set = new SimpleAttributeSet();
-	StyleConstants.setItalic(set, true);
-    // StyleConstants.setForeground(set, Color.red);
-	StyleConstants.setBackground(set, Color.blue);
+	// labeling html code viewer
+	JLabel htmllabel = new JLabel("This is your HTML code! :o", null, JLabel.LEFT);
+     	htmllabel.setPreferredSize(new Dimension(300, 30));
+	
+	// creating ui pane
+	JTextPane ui = new JTextPane();
+	ui.setText( "dis b a jtextpane, the other is jeditor pane" );
+	JScrollPane uiscroll = new JScrollPane(ui);
+	uiscroll.setPreferredSize(new Dimension(300, 500));
 
-	Document doc = ui.getStyledDocument();
-	doc.insertString(doc.getLength(), "Swing ", set);
+	// creating html code viewer pan
+	JEditorPane htmldisplay = new JEditorPane();
+       	JScrollPane htmlscroll = new JScrollPane(htmldisplay);
+	htmlscroll.setPreferredSize(new Dimension(300, 500));
 
-	set = new SimpleAttributeSet();
-	StyleConstants.setFontSize(set, 24);
-
-	doc.insertString(doc.getLength(), "Tutorial", set);
-
-	JScrollPane scrollPane = new JScrollPane(pane);
-	pane.add(scrollPane, BorderLayout.CENTER);
+	// adding elements
+	pane.add(uilabel);
+	pane.add(htmllabel);
+	pane.add(uiscroll);
+	pane.add(htmlscroll);
     }
 
-    public static void main (String[] args) throws BadLocationException {
+    public static void main (String[] args) {
 	WYSIWYG editor = new WYSIWYG();
 	editor.setVisible(true);
     }
 }
+	
+       
