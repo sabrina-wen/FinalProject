@@ -10,6 +10,7 @@ import java.io.IOException;
 public class WYSIWYG extends JFrame implements ActionListener {
   private Container pane;
   private JLabel uilabel;
+  private JTextComponent ui;
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -35,7 +36,7 @@ public class WYSIWYG extends JFrame implements ActionListener {
     convert.addActionListener(this);
 
     // creating ui pane
-    JTextPane ui = new JTextPane();
+    ui = new JTextPane();
     ui.setText( "dis b a jtextpane, the other is jeditor pane" );
     JScrollPane uiscroll = new JScrollPane(ui);
     uiscroll.setPreferredSize(new Dimension(300, 500));
@@ -54,15 +55,13 @@ public class WYSIWYG extends JFrame implements ActionListener {
   }
 
   public void actionPerformed(ActionEvent e) {
-      if (e.getActionCommand().equals("convert")) {
-        uilabel.setText("what");
-        if ()
+    // checks if any texts were selected
+    if (ui.getSelectedText() != null) {
+        // replaces selected text with the stylized replacement
+        String replacement = ui.getSelectedText() + " REPLACED ";
+        ui.replaceSelection(replacement);
       }
     }
-
-
-
-
 
 
   public static void main (String[] args) {
