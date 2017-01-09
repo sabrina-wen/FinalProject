@@ -27,6 +27,17 @@ public class WYSIWYG extends JFrame {
 	// labeling html code viewer
 	JLabel htmllabel = new JLabel("This is your HTML code! :o", null, JLabel.LEFT);
      	htmllabel.setPreferredSize(new Dimension(300, 30));
+	
+	// creating ui pane
+	JTextPane ui = new JTextPane();
+	ui.setText( "dis b a jtextpane, the other is jeditor pane" );
+	JScrollPane uiscroll = new JScrollPane(ui);
+	uiscroll.setPreferredSize(new Dimension(300, 500));
+
+	// creating html code viewer pan
+	JEditorPane htmldisplay = new JEditorPane();
+       	JScrollPane htmlscroll = new JScrollPane(htmldisplay);
+	htmlscroll.setPreferredSize(new Dimension(300, 500));
 
     // creating convert button for testing
     JButton convert = new JButton("Convert");
@@ -35,17 +46,6 @@ public class WYSIWYG extends JFrame {
     JButton bold = new JButton("Bold");
     bold.setActionCommand("bold");
     convert.addActionListener(this);
-
-    // creating ui pane
-    ui = new JTextPane();
-    ui.setText( "dis b a jtextpane, the other is jeditor pane" );
-    JScrollPane uiscroll = new JScrollPane(ui);
-    uiscroll.setPreferredSize(new Dimension(300, 500));
-
-    // creating html code viewer pan
-    JEditorPane htmldisplay = new JEditorPane();
-    JScrollPane htmlscroll = new JScrollPane(htmldisplay);
-    htmlscroll.setPreferredSize(new Dimension(300, 500));
 
     // adding elements
     pane.add(uilabel);
@@ -69,4 +69,5 @@ public class WYSIWYG extends JFrame {
     WYSIWYG editor = new WYSIWYG();
     editor.setVisible(true);
   }
+
 }
