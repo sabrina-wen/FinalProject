@@ -7,28 +7,26 @@ import java.awt.event.*;        //for action events
 import java.net.URL;
 import java.io.IOException;
 
-public class WYSIWYG extends JFrame implements ActionListener {
-  private Container pane;
-  private JLabel uilabel;
-  private JTextComponent ui;
+public class WYSIWYG extends JFrame {
+    private Container pane;
 
-  public WYSIWYG () {
-    this.setTitle("WYSIWYG Editor");
-    this.setSize(800,600);
-    this.setLocation(100,100);
-    this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    public WYSIWYG () {
+	this.setTitle("WYSIWYG Editor");
+	this.setSize(800,600);
+	this.setLocation(100,100);
+	this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-    // initializing pane
-    pane = this.getContentPane();
-    pane.setLayout(new FlowLayout());
+	// initializing pane
+	pane = this.getContentPane();
+	pane.setLayout(new FlowLayout());
 
-    // lableing ui pane
-    uilabel = new JLabel("Type and format code here.", null, JLabel.LEFT);
-    uilabel.setPreferredSize(new Dimension(300, 30));
+	// lableing ui pane
+	JLabel uilabel = new JLabel("Type and format code here.", null, JLabel.LEFT);
+	uilabel.setPreferredSize(new Dimension(300, 30));
 
-    // labeling html code viewer
-    JLabel htmllabel = new JLabel("This is your HTML code! :o", null, JLabel.LEFT);
-    htmllabel.setPreferredSize(new Dimension(300, 30));
+	// labeling html code viewer
+	JLabel htmllabel = new JLabel("This is your HTML code! :o", null, JLabel.LEFT);
+     	htmllabel.setPreferredSize(new Dimension(300, 30));
 
     // creating convert button for testing
     JButton convert = new JButton("Convert");
@@ -66,7 +64,6 @@ public class WYSIWYG extends JFrame implements ActionListener {
         ui.replaceSelection(replacement);
       }
     }
-
 
   public static void main (String[] args) {
     WYSIWYG editor = new WYSIWYG();
