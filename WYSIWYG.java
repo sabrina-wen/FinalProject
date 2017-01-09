@@ -39,35 +39,35 @@ public class WYSIWYG extends JFrame {
        	JScrollPane htmlscroll = new JScrollPane(htmldisplay);
 	htmlscroll.setPreferredSize(new Dimension(300, 500));
 
-    // creating convert button for testing
-    JButton convert = new JButton("Convert");
-    convert.setActionCommand("convert");
-    convert.addActionListener(this);
-    JButton bold = new JButton("Bold");
-    bold.setActionCommand("bold");
-    convert.addActionListener(this);
+	// creating convert button for testing
+	JButton convert = new JButton("Convert");
+	convert.setActionCommand("convert");
+	convert.addActionListener(this);
+	JButton bold = new JButton("Bold");
+	bold.setActionCommand("bold");
+	convert.addActionListener(this);
 
-    // adding elements
-    pane.add(uilabel);
-    pane.add(htmllabel);
-    pane.add(uiscroll);
-    pane.add(convert);
-    pane.add(bold);
-    pane.add(htmlscroll);
-  }
-
-  public void actionPerformed(ActionEvent e) {
-    // checks if any texts were selected
-    if (ui.getSelectedText() != null) {
-        // replaces selected text with the stylized replacement
-        String replacement = ui.getSelectedText() + " REPLACED ";
-        ui.replaceSelection(replacement);
-      }
+	// adding elements
+	pane.add(uilabel);
+	pane.add(htmllabel);
+	pane.add(uiscroll);
+	pane.add(convert);
+	pane.add(bold);
+	pane.add(htmlscroll);
     }
 
-  public static void main (String[] args) {
-    WYSIWYG editor = new WYSIWYG();
-    editor.setVisible(true);
-  }
+    public void actionPerformed(ActionEvent e) {
+	// checks if any texts were selected
+	if (ui.getSelectedText() != null) {
+	    // replaces selected text with the stylized replacement
+	    String replacement = ui.getSelectedText() + " REPLACED ";
+	    ui.replaceSelection(replacement);
+	}
+    }
+
+    public static void main (String[] args) {
+	WYSIWYG editor = new WYSIWYG();
+	editor.setVisible(true);
+    }
 
 }
