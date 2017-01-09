@@ -43,9 +43,11 @@ public class WYSIWYG extends JFrame {
 	JButton convert = new JButton("Convert");
 	convert.setActionCommand("convert");
 	convert.addActionListener(this);
+
+      	// creating bold button for testing
 	JButton bold = new JButton("Bold");
-	bold.setActionCommand("bold");
-	convert.addActionListener(this);
+	bold.setActionCommand("convert");
+	bold.addActionListener(this);
 
 	// adding elements
 	pane.add(uilabel);
@@ -60,8 +62,15 @@ public class WYSIWYG extends JFrame {
 	// checks if any texts were selected
 	if (ui.getSelectedText() != null) {
 	    // replaces selected text with the stylized replacement
-	    String replacement = ui.getSelectedText() + " REPLACED ";
-	    ui.replaceSelection(replacement);
+	    String event = e.getActionCommand();
+	    if (event.equals("convert")) {
+		String replacement = ui.getSelectedText() + " REPLACED ";
+		ui.replaceSelection(replacement);
+	    }
+	    if (event.equals("bold")) {
+	       	String replacement = "<b>" + ui.getSelectedText() + "</b>";
+		ui.replaceSelection(replacement);
+	    }
 	}
     }
 
