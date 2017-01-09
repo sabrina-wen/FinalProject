@@ -34,6 +34,9 @@ public class WYSIWYG extends JFrame implements ActionListener {
     JButton convert = new JButton("Convert");
     convert.setActionCommand("convert");
     convert.addActionListener(this);
+    JButton bold = new JButton("Bold");
+    bold.setActionCommand("bold");
+    convert.addActionListener(this);
 
     // creating ui pane
     ui = new JTextPane();
@@ -51,6 +54,7 @@ public class WYSIWYG extends JFrame implements ActionListener {
     pane.add(htmllabel);
     pane.add(uiscroll);
     pane.add(convert);
+    pane.add(bold);
     pane.add(htmlscroll);
   }
 
