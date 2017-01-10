@@ -4,13 +4,14 @@ import javax.swing.text.html.*;
 
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;        //for action events
+import javax.swing.undo.*;
 
 import java.net.URL;
 import java.io.IOException;
 
 public class WYSIWYG extends JFrame {
-  private Container pane;
-  private JTextPane ui;
+    private Container pane;
+    private JTextPane ui;
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -34,24 +35,34 @@ public class WYSIWYG extends JFrame {
     ui = new JTextPane();
     ui.setContentType("text/html");
     ui.setEditorKit(new HTMLEditorKit());
-    ui.setText( "dis b a <strong>jtextpane</strong>, the other is jeditor pane" );
+    ui.setText( "gReeTIngS EArthliNGs" );
     JScrollPane uiscroll = new JScrollPane(ui);
     uiscroll.setPreferredSize(new Dimension(600, 500));
 
     uiscroll.setBorder(
             BorderFactory.createCompoundBorder(
-                            BorderFactory.createTitledBorder("Text Fields"),
+                            BorderFactory.createTitledBorder("Text Editor :o"),
                             BorderFactory.createEmptyBorder(1,1,1,1)));
 
-    JToolBar bar = new JToolBar();
-    bar.add(new StyledEditorKit.BoldAction());
-    bar.add(new StyledEditorKit.ItalicAction());
-    bar.add(new StyledEditorKit.UnderlineAction());
-    bar.add(new StyledEditorKit.AlignmentAction("Left", -1));
-    bar.add(new StyledEditorKit.AlignmentAction("Center", 1));
-    bar.add(new StyledEditorKit.AlignmentAction("Right", 2));
-    bar.add(new StyledEditorKit.FontSizeAction("14", 14));
-    bar.add(new StyledEditorKit.FontSizeAction("16", 16));
+    // JButton undobutton = new JButton("undo");
+    // undobutton.addActionListener(new UndoActionListener("undo"));
+
+    JToolBar editbar = new JToolBar();
+    editbar.add(new StyledEditorKit.BoldAction());
+    editbar.add(new StyledEditorKit.ItalicAction());
+    editbar.add(new StyledEditorKit.UnderlineAction());
+    editbar.add(new StyledEditorKit.AlignmentAction("Left", -1));
+    editbar.add(new StyledEditorKit.AlignmentAction("Center", 1));
+    editbar.add(new StyledEditorKit.AlignmentAction("Right", 2));
+    editbar.add(new StyledEditorKit.FontSizeAction("14", 14));
+    editbar.add(new StyledEditorKit.FontSizeAction("16", 16));
+    editbar.add(new StyledEditorKit.ForegroundAction("Change color", Color.RED));
+
+    JToolBar functionbar = new JToolBar();
+    functionbar.add(new DefaultEditorKit.CopyAction());
+    functionbar.add(new DefaultEditorKit.CutAction());
+    functionbar.add(new DefaultEditorKit.PasteAction());
+    // bar.add(new JTextComponent.copy(getSelectedText()));
 
     // creating html code viewer pan
     //JEditorPane htmldisplay = new JEditorPane();
@@ -60,7 +71,8 @@ public class WYSIWYG extends JFrame {
 
     // adding elements
     //pane.add(uilabel);
-    pane.add(bar);
+    pane.add(editbar);
+    pane.add(functionbar);
     //pane.add(htmllabel);
     pane.add(uiscroll);
     //pane.add(htmlscroll);
