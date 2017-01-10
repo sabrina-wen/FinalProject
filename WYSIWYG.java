@@ -10,6 +10,7 @@ import java.io.IOException;
 public class WYSIWYG extends JFrame implements ActionListener{
   private Container pane;
   private JTextPane ui;
+  private StyledDocument document;
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -21,7 +22,7 @@ public class WYSIWYG extends JFrame implements ActionListener{
     pane = this.getContentPane();
     pane.setLayout(new FlowLayout());
 
-    // lableing ui pane
+    // labeling ui pane
     JLabel uilabel = new JLabel("Type and format code here.", null, JLabel.LEFT);
     uilabel.setPreferredSize(new Dimension(300, 30));
 
@@ -31,9 +32,15 @@ public class WYSIWYG extends JFrame implements ActionListener{
 
     // creating ui pane
     ui = new JTextPane();
+    ui.setContentType("text/html");
     ui.setText( "dis b a jtextpane, the other is jeditor pane" );
     JScrollPane uiscroll = new JScrollPane(ui);
     uiscroll.setPreferredSize(new Dimension(300, 500));
+
+    // // creating styledDocument
+    // document = ui.getStyledDocument();
+    // Style style = ui.addStyle("bold", null);
+    // StyleConstants.setBold(style, true);
 
     // creating html code viewer pan
     JEditorPane htmldisplay = new JEditorPane();
@@ -41,9 +48,6 @@ public class WYSIWYG extends JFrame implements ActionListener{
     htmlscroll.setPreferredSize(new Dimension(300, 500));
 
     // creating convert button for testing
-    JButton convert = new JButton("Convert");
-    convert.setActionCommand("convert");
-    convert.addActionListener(this);
     JButton bold = new JButton("Bold");
     bold.setActionCommand("bold");
     bold.addActionListener(this);
@@ -52,7 +56,6 @@ public class WYSIWYG extends JFrame implements ActionListener{
     pane.add(uilabel);
     pane.add(htmllabel);
     pane.add(uiscroll);
-    pane.add(convert);
     pane.add(bold);
     pane.add(htmlscroll);
   }
@@ -60,9 +63,29 @@ public class WYSIWYG extends JFrame implements ActionListener{
   public void actionPerformed(ActionEvent e) {
     // checks if any texts were selected
     if (ui.getSelectedText() != null) {
-      // replaces selected text with the stylized replacement
-      String replacement = ui.getSelectedText() + " REPLACED ";
-      ui.replaceSelection(replacement);
+      String boldStart = "<html><strong>";
+      String boldEnd = "</strong></html>";
+      int startSelected = ui.getSelectionStart();
+      int endSelected = ui.getSelectionEnd();
+      ui.selectAll();
+      int afterAll = ui.getSelectionEnd();
+      ui.select(0, startSelected);
+      String beforeSelected = ui.getSelectedText();
+      ui.select(startSelected, endSelected);
+      String selected = ui.getSelectedText();
+      ui.select(endSelected, afterAll);
+      String afterSelected = ui.getSelectedText();
+
+      System.out.println(beforeSelected);
+      System.out.println(selected);
+      System.out.println(afterSelected);
+      if (e.getActionCommand().equals("bold")) {
+        ui.setText(beforeSelected + boldStart + selected + boldEnd + afterSelected);
+        // document.setCharacterAttributes(ui.getSelectionStart(),
+        // ui.getSelectionEnd(),
+        // ui.getStyle("Bold"),
+        // true);
+      }
     }
   }
 
