@@ -242,27 +242,9 @@ public class TextSamplerDemo extends JPanel
 
         s = doc.addStyle("icon", regular);
         StyleConstants.setAlignment(s, StyleConstants.ALIGN_CENTER);
-        ImageIcon pigIcon = createImageIcon("images/Pig.gif",
-                                            "a cute pig");
-        if (pigIcon != null) {
-            StyleConstants.setIcon(s, pigIcon);
-        }
 
         s = doc.addStyle("button", regular);
         StyleConstants.setAlignment(s, StyleConstants.ALIGN_CENTER);
-        ImageIcon soundIcon = createImageIcon("images/sound.gif",
-                                              "sound icon");
-        JButton button = new JButton();
-        if (soundIcon != null) {
-            button.setIcon(soundIcon);
-        } else {
-            button.setText("BEEP");
-        }
-        button.setCursor(Cursor.getDefaultCursor());
-        button.setMargin(new Insets(0,0,0,0));
-        button.setActionCommand(buttonString);
-        button.addActionListener(this);
-        StyleConstants.setComponent(s, button);
     }
 
     /** Returns an ImageIcon, or null if the path was invalid. */
