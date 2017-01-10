@@ -7,8 +7,9 @@ import java.awt.event.*;        //for action events
 import java.net.URL;
 import java.io.IOException;
 
-public class WYSIWYG extends JFrame {
+public class WYSIWYG extends JFrame implements ActionListener{
     private Container pane;
+    private JTextPane ui;
 
     public WYSIWYG () {
 	this.setTitle("WYSIWYG Editor");
@@ -27,9 +28,9 @@ public class WYSIWYG extends JFrame {
 	// labeling html code viewer
 	JLabel htmllabel = new JLabel("This is your HTML code! :o", null, JLabel.LEFT);
      	htmllabel.setPreferredSize(new Dimension(300, 30));
-	
+
 	// creating ui pane
-	JTextPane ui = new JTextPane();
+	ui = new JTextPane();
 	ui.setText( "dis b a jtextpane, the other is jeditor pane" );
 	JScrollPane uiscroll = new JScrollPane(ui);
 	uiscroll.setPreferredSize(new Dimension(300, 500));
@@ -45,7 +46,7 @@ public class WYSIWYG extends JFrame {
 	convert.addActionListener(this);
 	JButton bold = new JButton("Bold");
 	bold.setActionCommand("bold");
-	convert.addActionListener(this);
+	bold.addActionListener(this);
 
 	// adding elements
 	pane.add(uilabel);
