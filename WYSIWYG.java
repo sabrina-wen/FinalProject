@@ -1,17 +1,16 @@
 import javax.swing.*;
 import javax.swing.text.*;
-import javax.swing.text.html.*;
 
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;        //for action events
-import javax.swing.undo.*;
 
 import java.net.URL;
 import java.io.IOException;
 
-public class WYSIWYG extends JFrame {
-    private Container pane;
-    private JTextPane ui;
+public class WYSIWYG extends JFrame implements ActionListener{
+  private Container pane;
+  private JTextPane ui;
+  private StyledDocument document;
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -34,48 +33,60 @@ public class WYSIWYG extends JFrame {
     // creating ui pane
     ui = new JTextPane();
     ui.setContentType("text/html");
-    ui.setEditorKit(new HTMLEditorKit());
-    ui.setText( "gReeTIngS EArthliNGs" );
+    ui.setText( "dis b a jtextpane, the other is jeditor pane" );
     JScrollPane uiscroll = new JScrollPane(ui);
-    uiscroll.setPreferredSize(new Dimension(600, 500));
+    uiscroll.setPreferredSize(new Dimension(300, 500));
 
-    uiscroll.setBorder(
-            BorderFactory.createCompoundBorder(
-                            BorderFactory.createTitledBorder("Text Editor :o"),
-                            BorderFactory.createEmptyBorder(1,1,1,1)));
-
-    // JButton undobutton = new JButton("undo");
-    // undobutton.addActionListener(new UndoActionListener("undo"));
-
-    JToolBar editbar = new JToolBar();
-    editbar.add(new StyledEditorKit.BoldAction());
-    editbar.add(new StyledEditorKit.ItalicAction());
-    editbar.add(new StyledEditorKit.UnderlineAction());
-    editbar.add(new StyledEditorKit.AlignmentAction("Left", -1));
-    editbar.add(new StyledEditorKit.AlignmentAction("Center", 1));
-    editbar.add(new StyledEditorKit.AlignmentAction("Right", 2));
-    editbar.add(new StyledEditorKit.FontSizeAction("14", 14));
-    editbar.add(new StyledEditorKit.FontSizeAction("16", 16));
-    editbar.add(new StyledEditorKit.ForegroundAction("Change color", Color.RED));
-
-    JToolBar functionbar = new JToolBar();
-    functionbar.add(new DefaultEditorKit.CopyAction());
-    functionbar.add(new DefaultEditorKit.CutAction());
-    functionbar.add(new DefaultEditorKit.PasteAction());
-    // bar.add(new JTextComponent.copy(getSelectedText()));
+    // // creating styledDocument
+    // document = ui.getStyledDocument();
+    // Style style = ui.addStyle("bold", null);
+    // StyleConstants.setBold(style, true);
 
     // creating html code viewer pan
-    //JEditorPane htmldisplay = new JEditorPane();
-    //JScrollPane htmlscroll = new JScrollPane(htmldisplay);
-    //htmlscroll.setPreferredSize(new Dimension(300, 500));
+    JEditorPane htmldisplay = new JEditorPane();
+    JScrollPane htmlscroll = new JScrollPane(htmldisplay);
+    htmlscroll.setPreferredSize(new Dimension(300, 500));
+
+    // creating convert button for testing
+    JButton bold = new JButton("Bold");
+    bold.setActionCommand("bold");
+    bold.addActionListener(this);
 
     // adding elements
-    //pane.add(uilabel);
-    pane.add(editbar);
-    pane.add(functionbar);
-    //pane.add(htmllabel);
+    pane.add(uilabel);
+    pane.add(htmllabel);
     pane.add(uiscroll);
-    //pane.add(htmlscroll);
+    pane.add(bold);
+    pane.add(htmlscroll);
+  }
+
+  public void actionPerformed(ActionEvent e) {
+    // checks if any texts were selected
+    if (ui.getSelectedText() != null) {
+      String boldStart = "<html><strong>";
+      String boldEnd = "</strong></html>";
+      int startSelected = ui.getSelectionStart();
+      int endSelected = ui.getSelectionEnd();
+      ui.selectAll();
+      int afterAll = ui.getSelectionEnd();
+      ui.select(0, startSelected);
+      String beforeSelected = ui.getSelectedText();
+      ui.select(startSelected, endSelected);
+      String selected = ui.getSelectedText();
+      ui.select(endSelected, afterAll);
+      String afterSelected = ui.getSelectedText();
+
+      System.out.println(beforeSelected);
+      System.out.println(selected);
+      System.out.println(afterSelected);
+      if (e.getActionCommand().equals("bold")) {
+        ui.setText(beforeSelected + boldStart + selected + boldEnd + afterSelected);
+        // document.setCharacterAttributes(ui.getSelectionStart(),
+        // ui.getSelectionEnd(),
+        // ui.getStyle("Bold"),
+        // true);
+      }
+    }
   }
 
   public static void main (String[] args) {
