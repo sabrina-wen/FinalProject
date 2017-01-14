@@ -1,5 +1,6 @@
 import javax.swing.*;
 import javax.swing.text.*;
+import javax.swing.text.html.*;
 
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;        //for action events
@@ -14,38 +15,33 @@ public class WYSIWYG extends JFrame implements ActionListener{
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
-    this.setSize(800,600);
-    this.setLocation(100,100);
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    int sizeWidth = (int)(screenSize.getWidth() * .75);
+    int sizeHeight = (int)(screenSize.getHeight() * .75);
+
+    this.setSize(sizeWidth, sizeHeight);
+    this.setMinimumSize(new Dimension(sizeWidth,sizeHeight));
+    this.setMaximumSize(new Dimension(sizeWidth,sizeHeight));
+    this.setLocation((int)(screenSize.getWidth() * .125),(int)(screenSize.getHeight() * .125));
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     // initializing pane
     pane = this.getContentPane();
     pane.setLayout(new FlowLayout());
 
-    // labeling ui pane
-    JLabel uilabel = new JLabel("Type and format code here.", null, JLabel.LEFT);
-    uilabel.setPreferredSize(new Dimension(300, 30));
-
-    // labeling html code viewer
-    JLabel htmllabel = new JLabel("This is your HTML code! :o", null, JLabel.LEFT);
-    htmllabel.setPreferredSize(new Dimension(300, 30));
-
     // creating ui pane
     ui = new JTextPane();
     ui.setContentType("text/html");
     ui.setText( "dis b a jtextpane, the other is jeditor pane" );
     JScrollPane uiscroll = new JScrollPane(ui);
-    uiscroll.setPreferredSize(new Dimension(300, 500));
-
-    // // creating styledDocument
-    // document = ui.getStyledDocument();
-    // Style style = ui.addStyle("bold", null);
-    // StyleConstants.setBold(style, true);
+    uiscroll.setPreferredSize(new Dimension(sizeWidth / 2 - 50, sizeHeight - 50));
+    uiscroll.setBorder(BorderFactory.createTitledBorder("Text"));
 
     // creating html code viewer pan
     JEditorPane htmldisplay = new JEditorPane();
     JScrollPane htmlscroll = new JScrollPane(htmldisplay);
-    htmlscroll.setPreferredSize(new Dimension(300, 500));
+    htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - 50, sizeHeight - 50));
+    htmlscroll.setBorder(BorderFactory.createTitledBorder("HTML"));
 
     // creating convert button for testing
     JButton bold = new JButton("Bold");
@@ -53,8 +49,6 @@ public class WYSIWYG extends JFrame implements ActionListener{
     bold.addActionListener(this);
 
     // adding elements
-    pane.add(uilabel);
-    pane.add(htmllabel);
     pane.add(uiscroll);
     pane.add(bold);
     pane.add(htmlscroll);
@@ -76,11 +70,10 @@ public class WYSIWYG extends JFrame implements ActionListener{
       ui.select(endSelected, afterAll);
       String afterSelected = ui.getSelectedText();
 
-      System.out.println(beforeSelected);
-      System.out.println(selected);
-      System.out.println(afterSelected);
       if (e.getActionCommand().equals("bold")) {
-        ui.setText(beforeSelected + boldStart + selected + boldEnd + afterSelected);
+        String newBoldText = beforeSelected + boldStart + selected + boldEnd + afterSelected;
+        System.out.println(newBoldText);
+        ui.setText(newBoldText);
         // document.setCharacterAttributes(ui.getSelectionStart(),
         // ui.getSelectionEnd(),
         // ui.getStyle("Bold"),
