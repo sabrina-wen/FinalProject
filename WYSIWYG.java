@@ -8,17 +8,18 @@ import java.awt.event.*;        //for action events
 import java.net.URL;
 import java.io.IOException;
 
+import java.util.*;
+
 public class WYSIWYG extends JFrame implements ActionListener{
   private Container pane;
   private JTextPane ui;
-  private StyledDocument document;
+  private ArrayList<String> boldedWords = new ArrayList<String>();
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int sizeWidth = (int)(screenSize.getWidth() * .75);
     int sizeHeight = (int)(screenSize.getHeight() * .75);
-
     this.setSize(sizeWidth, sizeHeight);
     this.setMinimumSize(new Dimension(sizeWidth,sizeHeight));
     this.setMaximumSize(new Dimension(sizeWidth,sizeHeight));
@@ -57,27 +58,29 @@ public class WYSIWYG extends JFrame implements ActionListener{
   public void actionPerformed(ActionEvent e) {
     // checks if any texts were selected
     if (ui.getSelectedText() != null) {
-      String boldStart = "<html><strong>";
-      String boldEnd = "</strong></html>";
+      String boldStart = "<strong>";
+      String boldEnd = "</strong>";
       int startSelected = ui.getSelectionStart();
       int endSelected = ui.getSelectionEnd();
       ui.selectAll();
       int afterAll = ui.getSelectionEnd();
+      System.out.println(afterAll);
       ui.select(0, startSelected);
       String beforeSelected = ui.getSelectedText();
       ui.select(startSelected, endSelected);
       String selected = ui.getSelectedText();
       ui.select(endSelected, afterAll);
-      String afterSelected = ui.getSelectedText();
-
+      String afterSelected;
+      if (endSelected != afterAll) {
+        afterSelected = ui.getSelectedText();
+      } else {
+        afterSelected = "";
+      }
       if (e.getActionCommand().equals("bold")) {
         String newBoldText = beforeSelected + boldStart + selected + boldEnd + afterSelected;
-        System.out.println(newBoldText);
+        boldedWords.add(startSelected + "," + endSelected);
         ui.setText(newBoldText);
-        // document.setCharacterAttributes(ui.getSelectionStart(),
-        // ui.getSelectionEnd(),
-        // ui.getStyle("Bold"),
-        // true);
+        System.out.println(boldedWords);
       }
     }
   }
