@@ -79,6 +79,7 @@ public class WYSIWYG extends JFrame implements ActionListener{
       if (e.getActionCommand().equals("bold")) {
         String newBoldText = beforeSelected + boldStart + selected + boldEnd + afterSelected;
         boldedWords.add(startSelected + "," + endSelected);
+        System.out.println(isBolded(boldedWords.get(0)));
         ui.setText(newBoldText);
         System.out.println(boldedWords);
       }
@@ -88,6 +89,14 @@ public class WYSIWYG extends JFrame implements ActionListener{
   public static void main (String[] args) {
     WYSIWYG editor = new WYSIWYG();
     editor.setVisible(true);
+  }
+
+  private boolean isBolded(String indices) {
+    if (indices.length() == 5) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 }
