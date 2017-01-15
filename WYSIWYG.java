@@ -13,6 +13,8 @@ import java.util.*;
 public class WYSIWYG extends JFrame implements ActionListener{
   private Container pane;
   private JTextPane ui;
+  private JEditorPane html;
+  private String selected, allText;
   private ArrayList<String> boldedWords = new ArrayList<String>();
 
   public WYSIWYG () {
@@ -32,15 +34,16 @@ public class WYSIWYG extends JFrame implements ActionListener{
 
     // creating ui pane
     ui = new JTextPane();
-    ui.setContentType("text/html");
-    ui.setText( "dis b a jtextpane, the other is jeditor pane" );
+    ui.setContentType("text/plain");
+    ui.setText( "dis b a jtextpane, the <b>other</b> is jeditor pane" );
     JScrollPane uiscroll = new JScrollPane(ui);
     uiscroll.setPreferredSize(new Dimension(sizeWidth / 2 - 50, sizeHeight - 50));
     uiscroll.setBorder(BorderFactory.createTitledBorder("Text"));
 
     // creating html code viewer pan
-    JEditorPane htmldisplay = new JEditorPane();
-    JScrollPane htmlscroll = new JScrollPane(htmldisplay);
+    html = new JEditorPane();
+    html.setContentType("text/plain");
+    JScrollPane htmlscroll = new JScrollPane(html);
     htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - 50, sizeHeight - 50));
     htmlscroll.setBorder(BorderFactory.createTitledBorder("HTML"));
 
@@ -56,38 +59,27 @@ public class WYSIWYG extends JFrame implements ActionListener{
   }
 
   public void actionPerformed(ActionEvent e) {
+      String event = e.getActionCommand();
     // checks if any texts were selected
-    if (ui.getSelectedText() != null) {
-      String boldStart = "<strong>";
-      String boldEnd = "</strong>";
-      int startSelected = ui.getSelectionStart();
-      int endSelected = ui.getSelectionEnd();
-      ui.selectAll();
-      int afterAll = ui.getSelectionEnd();
-      System.out.println(afterAll);
-      ui.select(0, startSelected);
-      String beforeSelected = ui.getSelectedText();
-      ui.select(startSelected, endSelected);
-      String selected = ui.getSelectedText();
-      ui.select(endSelected, afterAll);
-      String afterSelected;
-      if (endSelected != afterAll) {
-        afterSelected = ui.getSelectedText();
-      } else {
-        afterSelected = "";
+      if (event.equals("bold")) {
+	  if (ui.getSelectedText() != null) {
+	      selected = new String();
+	      selected = ui.getSelectedText();
+	      ui.replaceSelection("<b>" + selected + "</b>");
+	      allText = new String();
+	      allText = ui.getText();
+	      allText = allText.replace("&lt;", "<");
+	      allText = allText.replace("&gt;", ">");
+	      System.out.println(allText);
+	      html.setText(allText);
+	  }
       }
-      if (e.getActionCommand().equals("bold")) {
-        String newBoldText = beforeSelected + boldStart + selected + boldEnd + afterSelected;
-        boldedWords.add(startSelected + "," + endSelected);
-        ui.setText(newBoldText);
-        System.out.println(boldedWords);
-      }
-    }
   }
-
+    
   public static void main (String[] args) {
     WYSIWYG editor = new WYSIWYG();
     editor.setVisible(true);
   }
-
 }
+
+
