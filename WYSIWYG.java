@@ -11,11 +11,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class WYSIWYG extends JFrame implements ActionListener{
-    private Container pane;
-    private JTextPane ui;
-    private JEditorPane html;
-    private String selected, allText, restOfText;
-    private ArrayList<String> boldedWords = new ArrayList<String>();
+  private Container pane;
+  private JTextPane ui;
+  private JEditorPane html;
+  private String selected, allText, restOfText;
+  private ArrayList<String> boldedWords = new ArrayList<String>();
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -58,7 +58,7 @@ public class WYSIWYG extends JFrame implements ActionListener{
     pane.add(htmlscroll);
   }
 
-     public void actionPerformed(ActionEvent e) {
+  public void actionPerformed(ActionEvent e) {
     // checks if any texts were selected
     if (ui.getSelectedText() != null) {
       String boldStart = "<b>";
@@ -83,9 +83,9 @@ public class WYSIWYG extends JFrame implements ActionListener{
         String newBoldText = beforeSelected + boldStart + selected + boldEnd + afterSelected;
         boldedWords.add(startSelected + "," + endSelected);
         ui.setText(newBoldText);
-	allText = new String();
-	allText = ui.getText();
-	html.setText(allText);
+        allText = new String();
+        allText = ui.getText();
+        html.setText(allText);
         // System.out.println(boldedWords);
       }
     }
