@@ -90,11 +90,9 @@ public class WYSIWYG extends JFrame implements ActionListener{
       }
     }
   }
-    
+
   public static void main (String[] args) {
     WYSIWYG editor = new WYSIWYG();
     editor.setVisible(true);
   }
 }
-
-
