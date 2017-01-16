@@ -14,7 +14,7 @@ public class WYSIWYG extends JFrame implements ActionListener{
     private Container pane;
     private JTextPane ui;
     private JEditorPane html;
-    private String selected;
+    private String allText;
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -46,26 +46,43 @@ public class WYSIWYG extends JFrame implements ActionListener{
     htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - 50, sizeHeight - 50));
     htmlscroll.setBorder(BorderFactory.createTitledBorder("HTML"));
 
+    JToolBar editbar = new JToolBar();
+    editbar.add(new StyledEditorKit.BoldAction());
+    editbar.add(new StyledEditorKit.ItalicAction());
+    editbar.add(new StyledEditorKit.UnderlineAction());
+    editbar.add(new StyledEditorKit.AlignmentAction("Left", -1));
+    editbar.add(new StyledEditorKit.AlignmentAction("Center", 1));
+    editbar.add(new StyledEditorKit.AlignmentAction("Right", 2));
+    editbar.add(new StyledEditorKit.FontSizeAction("14", 14));
+    editbar.add(new StyledEditorKit.FontSizeAction("16", 16));
+    editbar.add(new StyledEditorKit.ForegroundAction("Change color", Color.RED));
+
+    JToolBar functionbar = new JToolBar();
+    functionbar.add(new DefaultEditorKit.CopyAction());
+    functionbar.add(new DefaultEditorKit.CutAction());
+    functionbar.add(new DefaultEditorKit.PasteAction());
+
     // creating convert button for testing
     JButton convert = new JButton("Convert");
-    bold.setActionCommand("convert");
-    bold.addActionListener(this);
+    convert.setActionCommand("convert");
+    convert.addActionListener(this);
 
     // adding elements
-    pane.add(uiscroll);
+    pane.add(editbar);
+    pane.add(functionbar);
     pane.add(convert);
+    pane.add(uiscroll);
     pane.add(htmlscroll);
   }
 
-     public void actionPerformed(ActionEvent e) {
-      if (e.getActionCommand().equals("convert")) {
-	allText = new String();
-	allText = ui.getText();
-	html.setText(allText);
-        // System.out.println(boldedWords);
-      }
+    public void actionPerformed(ActionEvent e) {
+	if (e.getActionCommand().equals("convert")) {
+	    allText = new String();
+	    allText = ui.getText();
+	    html.setText(allText);
+	    // System.out.println(boldedWords);
+	}
     }
-  }
     
   public static void main (String[] args) {
     WYSIWYG editor = new WYSIWYG();
