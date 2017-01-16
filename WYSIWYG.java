@@ -11,12 +11,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class WYSIWYG extends JFrame implements ActionListener{
-  private Container pane;
-  private JTextPane ui;
-  private JEditorPane html;
-  private String selected, allText, restOfText;
-  private ArrayList<String> boldedWords = new ArrayList<String>();
-
+    private Container pane;
+    private JTextPane ui;
+    private JEditorPane html;
+    private String allText;
+    
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -47,50 +46,44 @@ public class WYSIWYG extends JFrame implements ActionListener{
     htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - 50, sizeHeight - 50));
     htmlscroll.setBorder(BorderFactory.createTitledBorder("HTML"));
 
+    JToolBar editbar = new JToolBar();
+    editbar.add(new StyledEditorKit.BoldAction());
+    editbar.add(new StyledEditorKit.ItalicAction());
+    editbar.add(new StyledEditorKit.UnderlineAction());
+    editbar.add(new StyledEditorKit.AlignmentAction("Left", -1));
+    editbar.add(new StyledEditorKit.AlignmentAction("Center", 1));
+    editbar.add(new StyledEditorKit.AlignmentAction("Right", 2));
+    editbar.add(new StyledEditorKit.FontSizeAction("14", 14));
+    editbar.add(new StyledEditorKit.FontSizeAction("16", 16));
+    editbar.add(new StyledEditorKit.ForegroundAction("Change color", Color.RED));
+
+    JToolBar functionbar = new JToolBar();
+    functionbar.add(new DefaultEditorKit.CopyAction());
+    functionbar.add(new DefaultEditorKit.CutAction());
+    functionbar.add(new DefaultEditorKit.PasteAction());
+
     // creating convert button for testing
-    JButton bold = new JButton("Bold");
-    bold.setActionCommand("bold");
-    bold.addActionListener(this);
+    JButton convert = new JButton("Convert");
+    convert.setActionCommand("convert");
+    convert.addActionListener(this);
 
     // adding elements
+    pane.add(editbar);
+    pane.add(functionbar);
+    pane.add(convert);
     pane.add(uiscroll);
-    pane.add(bold);
     pane.add(htmlscroll);
   }
 
-  public void actionPerformed(ActionEvent e) {
-    // checks if any texts were selected
-    if (ui.getSelectedText() != null) {
-      String boldStart = "<b>";
-      String boldEnd = "</b>";
-      int startSelected = ui.getSelectionStart();
-      int endSelected = ui.getSelectionEnd();
-      ui.selectAll();
-      int afterAll = ui.getSelectionEnd();
-      System.out.println(afterAll);
-      ui.select(0, startSelected);
-      String beforeSelected = ui.getSelectedText();
-      ui.select(startSelected, endSelected);
-      String selected = ui.getSelectedText();
-      ui.select(endSelected, afterAll);
-      String afterSelected;
-      if (endSelected != afterAll) {
-        afterSelected = ui.getSelectedText();
-      } else {
-        afterSelected = "";
-      }
-      if (e.getActionCommand().equals("bold")) {
-        String newBoldText = beforeSelected + boldStart + selected + boldEnd + afterSelected;
-        boldedWords.add(startSelected + "," + endSelected);
-        ui.setText(newBoldText);
-        allText = new String();
-        allText = ui.getText();
-        html.setText(allText);
-        // System.out.println(boldedWords);
-      }
+    public void actionPerformed(ActionEvent e) {
+	if (e.getActionCommand().equals("convert")) {
+	    allText = new String();
+	    allText = ui.getText();
+	    html.setText(allText);
+	    // System.out.println(boldedWords);
+	}
     }
-  }
-
+    
   public static void main (String[] args) {
     WYSIWYG editor = new WYSIWYG();
     editor.setVisible(true);
