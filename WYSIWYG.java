@@ -11,10 +11,10 @@ import java.io.IOException;
 import java.util.*;
 
 public class WYSIWYG extends JFrame implements ActionListener{
-    private Container pane;
-    private JTextPane ui;
-    private JEditorPane html;
-    private String allText;
+  private Container pane;
+  private JTextPane ui;
+  private JEditorPane html;
+  private String allText;
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -75,14 +75,14 @@ public class WYSIWYG extends JFrame implements ActionListener{
     pane.add(htmlscroll);
   }
 
-    public void actionPerformed(ActionEvent e) {
-	if (e.getActionCommand().equals("convert")) {
-	    allText = new String();
-	    allText = ui.getText();
-	    html.setText(allText);
-	    // System.out.println(boldedWords);
-	}
+  public void actionPerformed(ActionEvent e) {
+    if (e.getActionCommand().equals("convert")) {
+      allText = new String();
+      allText = ui.getText();
+      html.setText(allText);
+      // System.out.println(boldedWords);
     }
+  }
 
   public static void main (String[] args) {
     WYSIWYG editor = new WYSIWYG();
