@@ -6,6 +6,7 @@ import java.awt.*;              //for layout managers and more
 import java.awt.event.*;        //for action events
 
 import java.net.URL;
+import java.io.*;
 import java.io.IOException;
 
 import java.util.*;
@@ -80,7 +81,12 @@ public class WYSIWYG extends JFrame implements ActionListener{
       allText = new String();
       allText = ui.getText();
       html.setText(allText);
-      // System.out.println(boldedWords);
+
+      try(PrintWriter out = new PrintWriter( "converted.html" )  ){
+        out.println(allText);
+      } catch(FileNotFoundException error) {
+        System.err.println("FileNotFoundException: " + error.getMessage());
+      }
     }
   }
 
