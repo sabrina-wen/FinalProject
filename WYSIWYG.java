@@ -14,8 +14,7 @@ public class WYSIWYG extends JFrame implements ActionListener{
     private Container pane;
     private JTextPane ui;
     private JEditorPane html;
-    private String selected, allText, restOfText;
-    private ArrayList<String> boldedWords = new ArrayList<String>();
+    private String selected;
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -48,41 +47,18 @@ public class WYSIWYG extends JFrame implements ActionListener{
     htmlscroll.setBorder(BorderFactory.createTitledBorder("HTML"));
 
     // creating convert button for testing
-    JButton bold = new JButton("Bold");
-    bold.setActionCommand("bold");
+    JButton convert = new JButton("Convert");
+    bold.setActionCommand("convert");
     bold.addActionListener(this);
 
     // adding elements
     pane.add(uiscroll);
-    pane.add(bold);
+    pane.add(convert);
     pane.add(htmlscroll);
   }
 
      public void actionPerformed(ActionEvent e) {
-    // checks if any texts were selected
-    if (ui.getSelectedText() != null) {
-      String boldStart = "<b>";
-      String boldEnd = "</b>";
-      int startSelected = ui.getSelectionStart();
-      int endSelected = ui.getSelectionEnd();
-      ui.selectAll();
-      int afterAll = ui.getSelectionEnd();
-      System.out.println(afterAll);
-      ui.select(0, startSelected);
-      String beforeSelected = ui.getSelectedText();
-      ui.select(startSelected, endSelected);
-      String selected = ui.getSelectedText();
-      ui.select(endSelected, afterAll);
-      String afterSelected;
-      if (endSelected != afterAll) {
-        afterSelected = ui.getSelectedText();
-      } else {
-        afterSelected = "";
-      }
-      if (e.getActionCommand().equals("bold")) {
-        String newBoldText = beforeSelected + boldStart + selected + boldEnd + afterSelected;
-        boldedWords.add(startSelected + "," + endSelected);
-        ui.setText(newBoldText);
+      if (e.getActionCommand().equals("convert")) {
 	allText = new String();
 	allText = ui.getText();
 	html.setText(allText);
