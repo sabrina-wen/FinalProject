@@ -60,14 +60,9 @@ public class WYSIWYG extends JFrame implements ActionListener{
     editbar.add(new StyledEditorKit.BoldAction());
     editbar.add(new StyledEditorKit.ItalicAction());
     editbar.add(new StyledEditorKit.UnderlineAction());
-    int fontSize = ui.getFont().getSize();
     editbar.add(new StyledEditorKit.AlignmentAction("Left", -1));
     editbar.add(new StyledEditorKit.AlignmentAction("Center", 1));
     editbar.add(new StyledEditorKit.AlignmentAction("Right", 2));
-    editbar.add(new StyledEditorKit.FontSizeAction("+", fontSize + 20));
-    fontSize = ui.getFont().getSize();
-    editbar.add(new StyledEditorKit.FontSizeAction("-", fontSize - 2));
-    editbar.add(new StyledEditorKit.ForegroundAction("Change color", Color.RED));
 
     // creating convert button for testing
     JButton convert = new JButton("Convert");
@@ -78,16 +73,22 @@ public class WYSIWYG extends JFrame implements ActionListener{
     getContentPane().add(menuBar, BorderLayout.NORTH);
     JMenu fileMenu = new JMenu("File");
     JMenu editMenu = new JMenu("Edit");
+    JMenu colorMenu = new JMenu("Color");
+    JMenu sizeMenu = new JMenu("Size");
 
     menuBar.add(fileMenu);
     menuBar.add(editMenu);
+    menuBar.add(colorMenu);
+    menuBar.add(sizeMenu);
 
+    // file menu
     JMenuItem saveItem = new JMenuItem("Save");
 
     saveItem.addActionListener(this);
 
     fileMenu.add(saveItem);
 
+    // edit menu
     JMenuItem cutItem = new JMenuItem(cutAction);
     JMenuItem copyItem = new JMenuItem(copyAction);
     JMenuItem pasteItem = new JMenuItem(pasteAction);
@@ -99,6 +100,41 @@ public class WYSIWYG extends JFrame implements ActionListener{
     editMenu.add(cutItem);
     editMenu.add(copyItem);
     editMenu.add(pasteItem);
+
+    // color menu
+    JMenuItem redOption = new JMenuItem(new StyledEditorKit.ForegroundAction("Red",Color.red));
+    JMenuItem blackOption = new JMenuItem(new StyledEditorKit.ForegroundAction("Black",Color.black));
+    JMenuItem blueOption = new JMenuItem(new StyledEditorKit.ForegroundAction("Blue",Color.blue));
+    JMenuItem grayOption = new JMenuItem(new StyledEditorKit.ForegroundAction("Gray",Color.gray));
+    JMenuItem greenOption = new JMenuItem(new StyledEditorKit.ForegroundAction("Green",Color.green));
+    JMenuItem orangeOption = new JMenuItem(new StyledEditorKit.ForegroundAction("Orange",Color.orange));
+    JMenuItem pinkOption = new JMenuItem(new StyledEditorKit.ForegroundAction("Pink",Color.pink));
+    JMenuItem whiteOption = new JMenuItem(new StyledEditorKit.ForegroundAction("White",Color.white));
+    JMenuItem yellowOption = new JMenuItem(new StyledEditorKit.ForegroundAction("Yellow",Color.yellow));
+
+    colorMenu.add(redOption);
+    colorMenu.add(blackOption);
+    colorMenu.add(blueOption);
+    colorMenu.add(grayOption);
+    colorMenu.add(greenOption);
+    colorMenu.add(orangeOption);
+    colorMenu.add(pinkOption);
+    colorMenu.add(whiteOption);
+    colorMenu.add(yellowOption);
+
+    // size menu
+
+    JMenuItem titleOption = new JMenuItem (new StyledEditorKit.FontSizeAction("Title", 72));
+    JMenuItem subtitleOption = new JMenuItem (new StyledEditorKit.FontSizeAction("SubTitle", 48));
+    JMenuItem subsubtitleOption = new JMenuItem (new StyledEditorKit.FontSizeAction("SubSubTitle", 30));
+    JMenuItem subsubsubtitleOption = new JMenuItem (new StyledEditorKit.FontSizeAction("SubSubSubTitle", 20));
+    JMenuItem bodyOption = new JMenuItem (new StyledEditorKit.FontSizeAction("Body", 14));
+
+    sizeMenu.add(titleOption);
+    sizeMenu.add(subtitleOption);
+    sizeMenu.add(subsubtitleOption);
+    sizeMenu.add(subsubsubtitleOption);
+    sizeMenu.add(bodyOption);
 
     JPanel editorControlPanel = new JPanel();
     //editorControlPanel.setLayout(new GridLayout(3,3));
