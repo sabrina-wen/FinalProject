@@ -28,8 +28,8 @@ public class WYSIWYG extends JFrame implements ActionListener{
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    int sizeWidth = (int)(screenSize.getWidth() * .85);
-    int sizeHeight = (int)(screenSize.getHeight() * .85);
+    int sizeWidth = (int)(screenSize.getWidth() * .8);
+    int sizeHeight = (int)(screenSize.getHeight() * .75);
     this.setSize(sizeWidth, sizeHeight);
     // this.setMinimumSize(new Dimension(sizeWidth,sizeHeight));
     // this.setMaximumSize(new Dimension(sizeWidth,sizeHeight));
@@ -45,14 +45,14 @@ public class WYSIWYG extends JFrame implements ActionListener{
     ui.setContentType("text/html");
     ui.setText( "dis b a jtextpane, the <b>other</b> is jeditor pane" );
     JScrollPane uiscroll = new JScrollPane(ui);
-    uiscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 10, sizeHeight - sizeHeight / 10));
+    uiscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 20, sizeHeight - sizeHeight / 5));
     uiscroll.setBorder(BorderFactory.createTitledBorder("Text"));
 
     // creating html code viewer pan
     html = new JEditorPane();
     html.setContentType("text/plain");
     JScrollPane htmlscroll = new JScrollPane(html);
-    htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 10, sizeHeight - sizeHeight / 10));
+    htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 20, sizeHeight - sizeHeight / 5));
     htmlscroll.setBorder(BorderFactory.createTitledBorder("HTML"));
 
 
@@ -70,7 +70,7 @@ public class WYSIWYG extends JFrame implements ActionListener{
     convert.addActionListener(this);
 
     JMenuBar menuBar = new JMenuBar();
-    getContentPane().add(menuBar, BorderLayout.NORTH);
+    
     JMenu fileMenu = new JMenu("File");
     JMenu editMenu = new JMenu("Edit");
     JMenu colorMenu = new JMenu("Color");
@@ -161,10 +161,11 @@ public class WYSIWYG extends JFrame implements ActionListener{
     setVisible(true);
 
     // adding elements
-    pane.add(uiscroll);
-    pane.add(convert);
-    pane.add(htmlscroll);
+    pane.add(menuBar);
     pane.add(editbar);
+    pane.add(convert);
+    pane.add(uiscroll);
+    pane.add(htmlscroll);
   }
 
   public void actionPerformed(ActionEvent e) {
