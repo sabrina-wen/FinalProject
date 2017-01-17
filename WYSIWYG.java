@@ -99,9 +99,9 @@ public class WYSIWYG extends JFrame implements ActionListener{
     editorControlPanel.setLayout(new FlowLayout());
 
     /* JButtons */
-    JButton cutButton = new JButton(cutAction);
-    JButton copyButton = new JButton(copyAction);
-    JButton pasteButton = new JButton(pasteAction);
+    JButton cutButton = new DefaultEditorKit.CutAction();
+    JButton copyButton = new DefaultEditorKit.CopyAction();
+    JButton pasteButton = new new DefaultEditorKit.PasteAction();
 
     cutButton.setText("Cut");
     copyButton.setText("Copy");
