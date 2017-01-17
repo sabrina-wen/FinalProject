@@ -20,9 +20,11 @@ public class WYSIWYG extends JFrame implements ActionListener{
   private JEditorPane html;
   private String allText;
 
+  private File currentFile;
+
   private Action cutAction = new DefaultEditorKit.CutAction();
-	private Action copyAction = new DefaultEditorKit.CopyAction();
-	private Action pasteAction = new DefaultEditorKit.PasteAction();
+  private Action copyAction = new DefaultEditorKit.CopyAction();
+  private Action pasteAction = new DefaultEditorKit.PasteAction();
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -80,13 +82,10 @@ public class WYSIWYG extends JFrame implements ActionListener{
     menuBar.add(editMenu);
 
     JMenuItem saveItem = new JMenuItem("Save");
-    JMenuItem saveAsItem = new JMenuItem("Save As");
 
     saveItem.addActionListener(this);
-    saveAsItem.addActionListener(this);
 
     fileMenu.add(saveItem);
-    fileMenu.add(saveAsItem);
 
     JMenuItem cutItem = new JMenuItem(cutAction);
     JMenuItem copyItem = new JMenuItem(copyAction);
@@ -142,6 +141,21 @@ public class WYSIWYG extends JFrame implements ActionListener{
       } catch(FileNotFoundException error) {
         System.err.println("FileNotFoundException: " + error.getMessage());
       }
+    }
+    else if (e.getActionCommand().equals("Save")) {
+      saveDocument();
+    }
+  }
+
+  public void saveDocument(){
+    try{
+      FileWriter fw = new FileWriter(currentFile);
+      fw.write(ui.getText());
+      fw.close();
+    }catch(FileNotFoundException error){
+      System.err.println("FileNotFoundException: " + error.getMessage());
+    }catch(IOException ioe){
+      System.err.println("IOException: " + ioe.getMessage());
     }
   }
 
