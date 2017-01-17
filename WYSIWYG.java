@@ -60,11 +60,13 @@ public class WYSIWYG extends JFrame implements ActionListener{
     editbar.add(new StyledEditorKit.BoldAction());
     editbar.add(new StyledEditorKit.ItalicAction());
     editbar.add(new StyledEditorKit.UnderlineAction());
+    int fontSize = ui.getFont().getSize();
     editbar.add(new StyledEditorKit.AlignmentAction("Left", -1));
     editbar.add(new StyledEditorKit.AlignmentAction("Center", 1));
     editbar.add(new StyledEditorKit.AlignmentAction("Right", 2));
-    editbar.add(new StyledEditorKit.FontSizeAction("14", 14));
-    editbar.add(new StyledEditorKit.FontSizeAction("16", 16));
+    editbar.add(new StyledEditorKit.FontSizeAction("+", fontSize + 20));
+    fontSize = ui.getFont().getSize();
+    editbar.add(new StyledEditorKit.FontSizeAction("-", fontSize - 2));
     editbar.add(new StyledEditorKit.ForegroundAction("Change color", Color.RED));
 
     // creating convert button for testing
