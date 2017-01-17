@@ -28,12 +28,12 @@ public class WYSIWYG extends JFrame implements ActionListener{
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    int sizeWidth = (int)(screenSize.getWidth() * .8);
-    int sizeHeight = (int)(screenSize.getHeight() * .75);
+    int sizeWidth = (int)(screenSize.getWidth() * .85);
+    int sizeHeight = (int)(screenSize.getHeight() * .85);
     this.setSize(sizeWidth, sizeHeight);
-    // this.setMinimumSize(new Dimension(sizeWidth,sizeHeight));
-    // this.setMaximumSize(new Dimension(sizeWidth,sizeHeight));
-    this.setLocation((int)(screenSize.getWidth() * .075),(int)(screenSize.getHeight() * .075));
+    this.setMinimumSize(new Dimension(sizeWidth,sizeHeight));
+    this.setMaximumSize(new Dimension(sizeWidth,sizeHeight));
+    this.setLocation((int)(screenSize.getWidth() * .075),0);
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
     // initializing pane
@@ -45,14 +45,14 @@ public class WYSIWYG extends JFrame implements ActionListener{
     ui.setContentType("text/html");
     ui.setText( "dis b a jtextpane, the <b>other</b> is jeditor pane" );
     JScrollPane uiscroll = new JScrollPane(ui);
-    uiscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 20, sizeHeight - sizeHeight / 5));
+    uiscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 20, sizeHeight - sizeHeight / 10));
     uiscroll.setBorder(BorderFactory.createTitledBorder("Text"));
 
     // creating html code viewer pan
     html = new JEditorPane();
     html.setContentType("text/plain");
     JScrollPane htmlscroll = new JScrollPane(html);
-    htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 20, sizeHeight - sizeHeight / 5));
+    htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 20, sizeHeight - sizeHeight / 10));
     htmlscroll.setBorder(BorderFactory.createTitledBorder("HTML"));
 
 
@@ -70,7 +70,7 @@ public class WYSIWYG extends JFrame implements ActionListener{
     convert.addActionListener(this);
 
     JMenuBar menuBar = new JMenuBar();
-    
+
     JMenu fileMenu = new JMenu("File");
     JMenu editMenu = new JMenu("Edit");
     JMenu colorMenu = new JMenu("Color");
@@ -123,7 +123,6 @@ public class WYSIWYG extends JFrame implements ActionListener{
     colorMenu.add(yellowOption);
 
     // size menu
-
     JMenuItem titleOption = new JMenuItem (new StyledEditorKit.FontSizeAction("Title", 72));
     JMenuItem subtitleOption = new JMenuItem (new StyledEditorKit.FontSizeAction("SubTitle", 48));
     JMenuItem subsubtitleOption = new JMenuItem (new StyledEditorKit.FontSizeAction("SubSubTitle", 30));
@@ -137,7 +136,6 @@ public class WYSIWYG extends JFrame implements ActionListener{
     sizeMenu.add(bodyOption);
 
     JPanel editorControlPanel = new JPanel();
-    //editorControlPanel.setLayout(new GridLayout(3,3));
     editorControlPanel.setLayout(new FlowLayout());
 
     /* JButtons */
@@ -157,7 +155,6 @@ public class WYSIWYG extends JFrame implements ActionListener{
     toolPanel.setLayout(new BorderLayout());
     toolPanel.add(editorControlPanel, BorderLayout.NORTH);
     getContentPane().add(menuBar, BorderLayout.NORTH);
-    //getContentPane().add(toolPanel, BorderLayout.CENTER);
     setVisible(true);
 
     // adding elements
