@@ -19,7 +19,6 @@ public class WYSIWYG extends JFrame implements ActionListener{
   private JTextPane ui;
   private JEditorPane html;
   private String allText;
-
   private File currentFile;
 
   private Action cutAction = new DefaultEditorKit.CutAction();
@@ -132,32 +131,19 @@ public class WYSIWYG extends JFrame implements ActionListener{
 
   public void actionPerformed(ActionEvent e) {
     if (e.getActionCommand().equals("convert")) {
-      allText = new String();
-      allText = ui.getText();
+      String allText = ui.getText();
       html.setText(allText);
-
-      try(PrintWriter out = new PrintWriter( "converted.html" )  ){
+    }
+    else if (e.getActionCommand().equals("Save")) {
+      try (PrintWriter out = new PrintWriter("converted.html")  ) {
+        String allText = ui.getText();
         out.println(allText);
       } catch(FileNotFoundException error) {
         System.err.println("FileNotFoundException: " + error.getMessage());
       }
     }
-    else if (e.getActionCommand().equals("Save")) {
-      saveDocument();
-    }
   }
 
-  public void saveDocument(){
-    try{
-      FileWriter fw = new FileWriter(currentFile);
-      fw.write(ui.getText());
-      fw.close();
-    }catch(FileNotFoundException error){
-      System.err.println("FileNotFoundException: " + error.getMessage());
-    }catch(IOException ioe){
-      System.err.println("IOException: " + ioe.getMessage());
-    }
-  }
 
   public static void main (String[] args) {
     WYSIWYG editor = new WYSIWYG();
