@@ -21,6 +21,10 @@ public class WYSIWYG extends JFrame implements ActionListener{
   private String allText;
   private File currentFile;
 
+  private Action cutAction = new DefaultEditorKit.CutAction();
+  private Action copyAction = new DefaultEditorKit.CopyAction();
+  private Action pasteAction = new DefaultEditorKit.PasteAction();
+
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -82,9 +86,9 @@ public class WYSIWYG extends JFrame implements ActionListener{
 
     fileMenu.add(saveItem);
 
-    JMenuItem cutItem = new DefaultEditorKit.CutAction();
-    JMenuItem copyItem = new DefaultEditorKit.CopyAction();
-    JMenuItem pasteItem = new DefaultEditorKit.PasteAction();
+    JMenuItem cutItem = new JMenuItem(cutAction);
+    JMenuItem copyItem = new JMenuItem(copyAction);
+    JMenuItem pasteItem = new JMenuItem(pasteAction);
 
     cutItem.setText("Cut");
     copyItem.setText("Copy");
@@ -99,9 +103,9 @@ public class WYSIWYG extends JFrame implements ActionListener{
     editorControlPanel.setLayout(new FlowLayout());
 
     /* JButtons */
-    JButton cutButton = new DefaultEditorKit.CutAction();
-    JButton copyButton = new DefaultEditorKit.CopyAction();
-    JButton pasteButton = new new DefaultEditorKit.PasteAction();
+    JButton cutButton = new JButton(cutAction);
+    JButton copyButton = new JButton(copyAction);
+    JButton pasteButton = new JButton(pasteAction);
 
     cutButton.setText("Cut");
     copyButton.setText("Copy");
