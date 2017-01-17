@@ -1,3 +1,5 @@
+import java.util.*;
+
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.text.html.*;
@@ -15,7 +17,9 @@ public class WYSIWYG extends JFrame implements ActionListener{
   private Container pane;
   private JTextPane ui;
   private JEditorPane html;
+  private JComboBox colorPicker;
   private String allText;
+  private String[] colorOptions;
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -47,15 +51,24 @@ public class WYSIWYG extends JFrame implements ActionListener{
     htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 10, sizeHeight - sizeHeight / 10));
     htmlscroll.setBorder(BorderFactory.createTitledBorder("HTML"));
 
+    // initializing color list
+    colorOptions = new String[2];
+    colorOptions[0] = "red";
+    colorOptions[1] = "blue";
+    colorPicker = new JComboBox(colorOptions);
+    colorPicker.addActionListener(this);
+
     JToolBar editbar = new JToolBar();
     editbar.add(new StyledEditorKit.BoldAction());
     editbar.add(new StyledEditorKit.ItalicAction());
     editbar.add(new StyledEditorKit.UnderlineAction());
+    int fontSize = ui.getFont().getSize();
     editbar.add(new StyledEditorKit.AlignmentAction("Left", -1));
     editbar.add(new StyledEditorKit.AlignmentAction("Center", 1));
     editbar.add(new StyledEditorKit.AlignmentAction("Right", 2));
-    editbar.add(new StyledEditorKit.FontSizeAction("14", 14));
-    editbar.add(new StyledEditorKit.FontSizeAction("16", 16));
+    editbar.add(new StyledEditorKit.FontSizeAction("+", fontSize + 20));
+    fontSize = ui.getFont().getSize();
+    editbar.add(new StyledEditorKit.FontSizeAction("-", fontSize - 2));
     editbar.add(new StyledEditorKit.ForegroundAction("Change color", Color.RED));
 
     JToolBar functionbar = new JToolBar();
@@ -71,6 +84,7 @@ public class WYSIWYG extends JFrame implements ActionListener{
     // adding elements
     pane.add(editbar);
     pane.add(functionbar);
+    pane.add(colorPicker);
     pane.add(convert);
     pane.add(uiscroll);
     pane.add(htmlscroll);
@@ -87,6 +101,19 @@ public class WYSIWYG extends JFrame implements ActionListener{
       } catch(FileNotFoundException error) {
         System.err.println("FileNotFoundException: " + error.getMessage());
       }
+    }
+    if (e.getSource() == colorPicker) {
+	JComboBox colorPickerCopy = (JComboBox)e.getSource();
+	String colorFromList = (String)colorPickerCopy.getSelectedItem();
+	switch (colorFromList) {
+	case "red":
+	    System.out.println("red");
+	    break;
+	case "blue":
+	    System.out.println("blue");
+	    break;
+	default: System.out.print("Choose a color!");
+	}
     }
   }
 
