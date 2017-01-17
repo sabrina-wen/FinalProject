@@ -1,6 +1,9 @@
 import javax.swing.*;
 import javax.swing.text.*;
 import javax.swing.text.html.*;
+import javax.swing.event.*;
+import javax.swing.filechooser.*;
+import javax.swing.undo.*;
 
 import java.awt.*;              //for layout managers and more
 import java.awt.event.*;        //for action events
@@ -16,6 +19,10 @@ public class WYSIWYG extends JFrame implements ActionListener{
   private JTextPane ui;
   private JEditorPane html;
   private String allText;
+
+  private Action cutAction = new DefaultEditorKit.CutAction();
+	private Action copyAction = new DefaultEditorKit.CopyAction();
+	private Action pasteAction = new DefaultEditorKit.PasteAction();
 
   public WYSIWYG () {
     this.setTitle("WYSIWYG Editor");
@@ -47,6 +54,7 @@ public class WYSIWYG extends JFrame implements ActionListener{
     htmlscroll.setPreferredSize(new Dimension(sizeWidth / 2 - sizeWidth / 10, sizeHeight - sizeHeight / 10));
     htmlscroll.setBorder(BorderFactory.createTitledBorder("HTML"));
 
+
     JToolBar editbar = new JToolBar();
     editbar.add(new StyledEditorKit.BoldAction());
     editbar.add(new StyledEditorKit.ItalicAction());
@@ -74,6 +82,48 @@ public class WYSIWYG extends JFrame implements ActionListener{
     pane.add(convert);
     pane.add(uiscroll);
     pane.add(htmlscroll);
+
+    JMenuBar menuBar = new JMenuBar();
+    getContentPane().add(menuBar, BorderLayout.NORTH);
+    JMenu editMenu = new JMenu("Edit");
+
+    menuBar.add(editMenu);
+
+    JMenuItem cutItem = new JMenuItem(cutAction);
+    JMenuItem copyItem = new JMenuItem(copyAction);
+    JMenuItem pasteItem = new JMenuItem(pasteAction);
+
+    cutItem.setText("Cut");
+    copyItem.setText("Copy");
+    pasteItem.setText("Paste");
+
+    editMenu.add(cutItem);
+    editMenu.add(copyItem);
+    editMenu.add(pasteItem);
+
+    JPanel editorControlPanel = new JPanel();
+    //editorControlPanel.setLayout(new GridLayout(3,3));
+    editorControlPanel.setLayout(new FlowLayout());
+
+    /* JButtons */
+    JButton cutButton = new JButton(cutAction);
+    JButton copyButton = new JButton(copyAction);
+    JButton pasteButton = new JButton(pasteAction);
+
+    cutButton.setText("Cut");
+    copyButton.setText("Copy");
+    pasteButton.setText("Paste");
+
+    editorControlPanel.add(cutButton);
+    editorControlPanel.add(copyButton);
+    editorControlPanel.add(pasteButton);
+
+    JPanel toolPanel = new JPanel();
+    toolPanel.setLayout(new BorderLayout());
+    toolPanel.add(editorControlPanel, BorderLayout.NORTH);
+    getContentPane().add(menuBar, BorderLayout.NORTH);
+    //getContentPane().add(toolPanel, BorderLayout.CENTER);
+    setVisible(true);
   }
 
   public void actionPerformed(ActionEvent e) {
