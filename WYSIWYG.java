@@ -73,9 +73,20 @@ public class WYSIWYG extends JFrame implements ActionListener{
 
     JMenuBar menuBar = new JMenuBar();
     getContentPane().add(menuBar, BorderLayout.NORTH);
+    JMenu fileMenu = new JMenu("File");
     JMenu editMenu = new JMenu("Edit");
 
+    menuBar.add(fileMenu);
     menuBar.add(editMenu);
+
+    JMenuItem saveItem = new JMenuItem("Save");
+    JMenuItem saveAsItem = new JMenuItem("Save As");
+
+    saveItem.addActionListener(this);
+    saveAsItem.addActionListener(this);
+
+    fileMenu.add(saveItem);
+    fileMenu.add(saveAsItem);
 
     JMenuItem cutItem = new JMenuItem(cutAction);
     JMenuItem copyItem = new JMenuItem(copyAction);
