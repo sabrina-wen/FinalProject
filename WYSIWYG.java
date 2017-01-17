@@ -30,8 +30,8 @@ public class WYSIWYG extends JFrame implements ActionListener{
     int sizeWidth = (int)(screenSize.getWidth() * .85);
     int sizeHeight = (int)(screenSize.getHeight() * .85);
     this.setSize(sizeWidth, sizeHeight);
-    this.setMinimumSize(new Dimension(sizeWidth,sizeHeight));
-    this.setMaximumSize(new Dimension(sizeWidth,sizeHeight));
+    // this.setMinimumSize(new Dimension(sizeWidth,sizeHeight));
+    // this.setMaximumSize(new Dimension(sizeWidth,sizeHeight));
     this.setLocation((int)(screenSize.getWidth() * .075),(int)(screenSize.getHeight() * .075));
     this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -66,22 +66,10 @@ public class WYSIWYG extends JFrame implements ActionListener{
     editbar.add(new StyledEditorKit.FontSizeAction("16", 16));
     editbar.add(new StyledEditorKit.ForegroundAction("Change color", Color.RED));
 
-    JToolBar functionbar = new JToolBar();
-    functionbar.add(new DefaultEditorKit.CopyAction());
-    functionbar.add(new DefaultEditorKit.CutAction());
-    functionbar.add(new DefaultEditorKit.PasteAction());
-
     // creating convert button for testing
     JButton convert = new JButton("Convert");
     convert.setActionCommand("convert");
     convert.addActionListener(this);
-
-    // adding elements
-    pane.add(editbar);
-    pane.add(functionbar);
-    pane.add(convert);
-    pane.add(uiscroll);
-    pane.add(htmlscroll);
 
     JMenuBar menuBar = new JMenuBar();
     getContentPane().add(menuBar, BorderLayout.NORTH);
@@ -124,6 +112,12 @@ public class WYSIWYG extends JFrame implements ActionListener{
     getContentPane().add(menuBar, BorderLayout.NORTH);
     //getContentPane().add(toolPanel, BorderLayout.CENTER);
     setVisible(true);
+
+    // adding elements
+    pane.add(uiscroll);
+    pane.add(convert);
+    pane.add(htmlscroll);
+    pane.add(editbar);
   }
 
   public void actionPerformed(ActionEvent e) {
