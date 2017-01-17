@@ -24,7 +24,6 @@ Directions on how to compile and run your code
 
 Directions on how to use your program
 - Use buttons/menus on GUI to interact and format text, and to convert it.
-- Your converted text to HTML file will save in whatever folder you are running WYSIWYG.java in. So if you are running it in our repo, the file way be saved there if you want to access the .html file.
 - Your converted text to HTML file will save in whatever folder you are running WYSIWYG.java in. So if you are running it in our repo, the file will be saved there if you want to access the .html file.
 
 >>>>>>> b967760c072fe3378fe19a2fcf886207bed7b01f
